@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palantir Technologies — Vendor Profile</title>
+<style>
+
+  :root{
+    --bg:#EFF0F3; --panel:#FFFFFF; --panel-2:#F5F6F8; --line:#DCDFE4;
+    --ink:#14161C; --ink-2:#3A3F4B; --ink-3:#5B6270;
+    --sand:#A5702B; --sand-dim:#C79256; --steel:#2B6684;
+    --green:#1F7A4D; --green-bg:#E6F5EC; --red:#B23A2E; --red-bg:#FBEAE8; --amber:#8A5B10;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px 60px;}
+
+  header.hero{
+    background:linear-gradient(180deg,#F5F6F8,#EFF0F3);
+    border-bottom:1px solid var(--line);
+    padding:40px 24px 28px;
+  }
+  .hero-inner{max-width:1080px; margin:0 auto;}
+  .kicker{
+    font-size:12.5px; color:var(--sand); letter-spacing:.02em; font-weight:600;
+    display:flex; gap:8px; align-items:center; margin-bottom:10px;
+  }
+  .kicker .dot{width:5px; height:5px; border-radius:50%; background:var(--sand);}
+  h1{font-size:34px; margin:0 0 8px; font-weight:700; letter-spacing:-0.01em; color:var(--ink);}
+  .tagline{color:var(--ink-2); font-size:15px; max-width:640px; margin:0;}
+  .tagline a{color:var(--steel); text-decoration:none;}
+
+  .kpi-row{
+    display:grid; grid-template-columns:repeat(7,1fr); gap:10px;
+    margin-top:26px;
+  }
+  .kpi{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 14px; text-align:left;}
+  .kpi .num{font-size:20px; font-weight:700; color:var(--ink);}
+  .kpi .lbl{font-size:11px; color:var(--ink-3); margin-top:4px;}
+
+  section{padding:38px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-head{display:flex; align-items:baseline; gap:10px; margin-bottom:18px;}
+  .sec-num{color:var(--sand); font-weight:700; font-size:13px;}
+  h2{font-size:19px; margin:0; font-weight:700; color:var(--ink);}
+  .sec-note{color:var(--ink-3); font-size:12.5px; margin:-8px 0 18px;}
+
+  /* snapshot */
+  .snap-grid{display:grid; grid-template-columns:1.35fr 1fr; gap:32px;}
+  .snap-grid p{font-size:14px; color:var(--ink-2); margin:0 0 14px;}
+  .snap-grid p b{color:var(--ink); font-weight:600;}
+  .side-block{margin-bottom:18px;}
+  .side-block h4{font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-3); margin:0 0 8px; font-weight:600;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{
+    font-size:12.5px; background:var(--panel); border:1px solid var(--line);
+    color:var(--ink-2); padding:5px 10px; border-radius:6px;
+  }
+
+  /* ratings */
+  .rating-cards{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px;}
+  .rcard{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:18px 20px;}
+  .rcard .src{font-size:12px; color:var(--ink-3); margin-bottom:10px;}
+  .rcard .big{font-size:28px; font-weight:700; display:flex; align-items:baseline; gap:8px; color:var(--ink);}
+  .rcard .big small{font-size:13px; color:var(--ink-3); font-weight:400;}
+  .meter{height:8px; background:var(--panel-2); border-radius:4px; margin:12px 0 10px; overflow:hidden;}
+  .meter > div{height:100%; background:var(--sand); border-radius:4px;}
+  .stat-line{display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-2); padding:4px 0; border-top:1px solid var(--line);}
+  .grade-row{display:flex; gap:8px; margin-top:12px;}
+  .grade{
+    flex:1; text-align:center; border-radius:8px; padding:10px 6px; border:1px solid var(--line); background:var(--panel-2);
+  }
+  .grade .letter{font-size:18px; font-weight:700; color:var(--sand);}
+  .grade.weak .letter{color:var(--red);}
+  .grade .cap{font-size:10.5px; color:var(--ink-3); margin-top:3px;}
+  .qual-note{font-size:12.5px; color:var(--ink-2); background:var(--panel-2); border-left:2px solid var(--sand); padding:10px 12px; border-radius:0 6px 6px 0;}
+
+  /* use cases */
+  .uc-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+  a.uc-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px 18px;
+    display:block; text-decoration:none; color:inherit; transition:border-color .15s, background .15s;
+  }
+  a.uc-card:hover{border-color:var(--sand-dim); background:var(--panel-2);}
+  a.uc-card:hover .uc-deploy{color:var(--sand);}
+  .uc-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;}
+  .uc-sector{font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--sand); font-weight:700;}
+  .uc-status-group{display:flex; align-items:center; gap:6px;}
+  .uc-status{font-size:10.5px; background:var(--green-bg); color:var(--green); padding:2px 8px; border-radius:20px; font-weight:600;}
+  .uc-link{font-size:11px; color:var(--ink-3);}
+  .uc-deploy{font-size:13.5px; color:var(--ink); font-weight:600; margin-bottom:6px; transition:color .15s;}
+  .uc-metric{font-size:12.5px; color:var(--ink-2);}
+  .uc-src{font-size:11px; color:var(--ink-3); margin-top:8px; padding-top:8px; border-top:1px solid var(--line);}
+
+  /* competitive */
+  .comp-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .comp-table th{
+    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.03em;
+    color:var(--ink-3); border-bottom:1px solid var(--line); padding:8px 10px; font-weight:600;
+  }
+  .comp-table td{padding:10px 10px; border-bottom:1px solid var(--line); color:var(--ink-2); vertical-align:top;}
+  .comp-table td.name{color:var(--ink); font-weight:600;}
+  .tag-direct{color:var(--sand); font-size:11px; font-weight:700;}
+  .tag-adjacent{color:var(--steel); font-size:11px; font-weight:700;}
+  .position-note{font-size:13.5px; color:var(--ink-2); margin-top:16px; padding-top:16px; border-top:1px solid var(--line);}
+  .position-note b{color:var(--ink);}
+  .subhead{font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-3); font-weight:600; margin:28px 0 12px;}
+  .scale-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .scale-table th{text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-3); border-bottom:1px solid var(--line); padding:8px 10px; font-weight:600;}
+  .scale-table td{padding:10px 10px; border-bottom:1px solid var(--line); color:var(--ink-2); vertical-align:top;}
+  .scale-table td.name{color:var(--ink); font-weight:600;}
+  .bar-cell{display:flex; align-items:center; gap:8px;}
+  .bar-track{flex:1; height:6px; background:var(--panel-2); border-radius:3px; overflow:hidden; max-width:120px; border:1px solid var(--line);}
+  .bar-fill{height:100%; background:var(--steel);}
+  .bar-fill.sand-fill{background:var(--sand);}
+  .callout{
+    background:var(--panel-2); border:1px solid var(--line); border-left:2px solid var(--steel);
+    border-radius:0 8px 8px 0; padding:14px 16px; font-size:13px; color:var(--ink-2); margin-top:18px;
+  }
+  .callout b{color:var(--ink);}
+
+  /* sentiment */
+  .sent-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .sent-col{border-radius:10px; padding:18px 20px; border:1px solid var(--line);}
+  .sent-col.bull{background:var(--green-bg);}
+  .sent-col.bear{background:var(--red-bg);}
+  .sent-head{font-size:13px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:6px;}
+  .sent-col.bull .sent-head{color:var(--green);}
+  .sent-col.bear .sent-head{color:var(--red);}
+  .sent-col ul{margin:0; padding-left:16px; font-size:13px; color:var(--ink-2);}
+  .sent-col li{margin-bottom:8px;}
+  .chart-box{margin-top:20px; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:18px 20px;}
+  .chart-box .chart-title{font-size:12.5px; color:var(--ink-3); margin-bottom:12px;}
+
+  footer{padding:26px 0 10px; font-size:11.5px; color:var(--ink-3); line-height:1.6;}
+  footer b{color:var(--ink-2);}
+
+  @media (max-width:720px){
+    .kpi-row{grid-template-columns:repeat(2,1fr);}
+    .snap-grid, .rating-cards, .uc-grid, .sent-grid{grid-template-columns:1fr;}
+    h1{font-size:26px;}
+  }
+
+/* --- market hub additions --- */
+.topnav{display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;}
+.back-link{font-size:12.5px; color:var(--steel); text-decoration:none; font-weight:600;}
+.back-link:hover{text-decoration:underline;}
+.btn{
+  display:inline-block; font-size:12.5px; font-weight:600; color:#fff; background:var(--ink);
+  padding:8px 14px; border-radius:8px; text-decoration:none; border:1px solid var(--ink);
+}
+.btn:hover{background:var(--sand); border-color:var(--sand);}
+.btn.secondary{background:var(--panel); color:var(--ink); border:1px solid var(--line);}
+.btn.secondary:hover{background:var(--panel-2); border-color:var(--sand-dim); color:var(--sand);}
+.btn-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;}
+
+.vendor-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+.vcard{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; display:flex; flex-direction:column;}
+.vcard-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;}
+.vcard-name{font-size:16px; font-weight:700; color:var(--ink); text-decoration:none;}
+.vcard-name:hover{color:var(--sand);}
+.vcard-cat{font-size:10.5px; text-transform:uppercase; letter-spacing:.03em; color:var(--sand); font-weight:700; margin-bottom:6px;}
+.vcard-desc{font-size:12.5px; color:var(--ink-2); flex:1; margin-bottom:12px;}
+.vcard-kpi{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:8px 10px; margin-bottom:12px;}
+.vcard-kpi .k-num{font-size:15px; font-weight:700; color:var(--ink);}
+.vcard-kpi .k-lbl{font-size:10.5px; color:var(--ink-3);}
+.vcard-actions{display:flex; gap:6px;}
+.vcard-actions a{flex:1; text-align:center; font-size:11.5px; padding:7px 8px;}
+
+.matrix-table{width:100%; border-collapse:collapse; font-size:12px;}
+.matrix-table th{text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.02em; color:var(--ink-3); border-bottom:1px solid var(--line); padding:8px 8px; font-weight:600; background:var(--panel);}
+.matrix-table td{padding:9px 8px; border-bottom:1px solid var(--line); color:var(--ink-2); vertical-align:top;}
+.matrix-table td.mname{color:var(--ink); font-weight:600; white-space:nowrap;}
+.matrix-table tr:nth-child(even) td{background:var(--panel-2);}
+.matrix-table a{color:var(--steel); text-decoration:none; font-weight:600;}
+.matrix-table a:hover{text-decoration:underline;}
+
+@media (max-width:900px){
+  .vendor-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:600px){
+  .vendor-grid{grid-template-columns:1fr;}
+}
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="topnav">
+      <a class="back-link" href="market-overview.html">&larr; Physical AI / Industrial AI Market Overview</a>
+    </div>
+    <div class="kicker"><span class="dot"></span>VENDOR PROFILE &nbsp;·&nbsp; ENTERPRISE &AMP; GOVERNMENT DATA-AI PLATFORM &nbsp;·&nbsp; SEPTEMBER 11, 2026</div>
+    <h1><a href="https://www.palantir.com" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Palantir Technologies ↗</a></h1>
+    <p class="tagline">The operating system for data-driven decisions across defense, intelligence and enterprise</p>
+    <div class="kpi-row">
+      <div class="kpi"><div class="num">2003</div><div class="lbl">Founded</div></div>
+      <div class="kpi"><div class="num">~4,400</div><div class="lbl">Employees</div></div>
+      <div class="kpi"><div class="num">$4.48B (FY2025)</div><div class="lbl">Latest reported / estimated revenue</div></div>
+      <div class="kpi"><div class="num">Public</div><div class="lbl">Ownership</div></div>
+      <div class="kpi"><div class="num">3.8 / 5</div><div class="lbl">Glassdoor rating (889 reviews)</div></div>
+    </div>
+    <div class="btn-row">
+      <a class="btn" href="palantir-one-sheet.pdf" download>Download one-pager (PDF) &darr;</a>
+      <a class="btn secondary" href="https://www.palantir.com" target="_blank" rel="noopener">Visit website ↗</a>
+      <a class="btn secondary" href="market-overview.html">← All vendors in this market</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Company snapshot</h2></div>
+    <div class="snap-grid">
+      <div>
+        <p>The best-capitalized, fastest-growing name in this market by far — GAAP-profitable, ~56% revenue growth, and a fast-scaling “AIP Bootcamp” go-to-market motion pulling U.S. commercial revenue up over 130% YoY.</p>
+        <p><b>Offering:</b> Four core platforms: Gotham (defense/intelligence), Foundry (commercial enterprise data integration), Apollo (deployment infrastructure) and AIP (AI Platform, launched 2023) — lets organizations deploy LLMs directly against their own operational data.</p>
+      </div>
+      <div>
+        <div class="side-block">
+          <h4>Key facts</h4>
+          <p style="margin:0 0 6px;"><b>Founded:</b> 2003</p>
+          <p style="margin:0 0 6px;"><b>HQ:</b> Denver, CO (relocated from Palo Alto; some 2026 reports cite a Miami-area office too)</p>
+          <p style="margin:0 0 6px;"><b>Ownership:</b> Public (Nasdaq: PLTR)</p>
+          <p style="margin:0 0 6px;"><b>Revenue:</b> $4.48B (FY2025), up 56% YoY; FY2026 guidance raised to $7.65–$7.66B</p>
+          <p style="margin:0;"><b>Web:</b> <a href="https://www.palantir.com" target="_blank" rel="noopener" style="color:var(--steel);">www.palantir.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/company/palantir-technologies" target="_blank" rel="noopener" style="color:var(--steel);">LinkedIn ↗</a></p>
+        </div>
+        <div class="side-block">
+          <h4>Key people</h4>
+          <div class="chip-row"><span class="chip"><b>Alex Karp</b> — Co-Founder &amp; CEO</span><span class="chip"><b>Stephen Cohen</b> — Co-Founder &amp; President</span><span class="chip"><b>Shyam Sankar</b> — Chief Technology Officer</span></div>
+        </div>
+        <div class="side-block">
+          <h4>Named customers (public sources)</h4>
+          <div class="chip-row"><span class="chip">CIA</span><span class="chip">U.S. Army</span><span class="chip">NHS England</span><span class="chip">Airbus</span><span class="chip">Ferrari</span><span class="chip">Morgan Stanley</span><span class="chip">Merck KGaA</span><span class="chip">PG&amp;E</span></div>
+        </div>
+        <div class="side-block">
+          <h4>Capabilities</h4>
+          <div class="grade-row">
+            <div class="grade"><div class="letter" style="font-size:13px;">Partial</div><div class="cap">Digital twin</div></div>
+            <div class="grade"><div class="letter" style="font-size:13px;">Yes — AIP is the fastest-growing product line</div><div class="cap">Agentic / GenAI</div></div>
+          </div>
+          <div style="margin-top:10px;" class="qual-note">Primary buyer: Government/defense agencies and enterprise data &amp; ops leaders</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Use cases &amp; reported metrics</h2></div>
+    <div class="sec-note">All impact figures below are vendor- or partner-reported and have not been independently audited.</div>
+    <div class="uc-grid">
+      <a class="uc-card" href="https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RW1nTi3" target="_blank" rel="noopener">
+        <div class="uc-top"><span class="uc-sector">Aerospace / manufacturing</span><span class="uc-status">Deployed</span></div>
+        <div class="uc-deploy">Airbus — Skywise platform on Foundry</div>
+        <div class="uc-metric">+33% production increase on the A350 aircraft line; Skywise now improves decision-making at 100+ airlines</div>
+        <div class="uc-src">Source ↗</div>
+      </a>
+      <a class="uc-card" href="https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RW1nTi3" target="_blank" rel="noopener">
+        <div class="uc-top"><span class="uc-sector">Energy</span><span class="uc-status">Deployed</span></div>
+        <div class="uc-deploy">Oil &amp; gas major — Foundry data integration</div>
+        <div class="uc-metric">Scanned 300+ SAP data sets across 5 legacy ERPs; unlocked ~$50M working capital in 2 weeks; identified 30k additional barrels/day, ~$1B additional opportunity</div>
+        <div class="uc-src">Source ↗</div>
+      </a>
+      <a class="uc-card" href="https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RW1nTi3" target="_blank" rel="noopener">
+        <div class="uc-top"><span class="uc-sector">Utilities</span><span class="uc-status">Deployed</span></div>
+        <div class="uc-deploy">PG&amp;E — wildfire risk &amp; grid optimization</div>
+        <div class="uc-metric">8–10 billion data points processed daily to inform wildfire mitigation and grid decisions for 16 million customers</div>
+        <div class="uc-src">Source ↗</div>
+      </a>
+      <a class="uc-card" href="https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RW1nTi3" target="_blank" rel="noopener">
+        <div class="uc-top"><span class="uc-sector">Financial services</span><span class="uc-status">Deployed</span></div>
+        <div class="uc-deploy">Global commercial bank — Foundry + AIP</div>
+        <div class="uc-metric">1,200+ data sources integrated; $65M+ additional revenue unlocked across 100 use cases and 15,000+ users</div>
+        <div class="uc-src">Source ↗</div>
+      </a>
+      <a class="uc-card" href="https://digitalstrategy.rsm.nl/2025/09/17/palantir-data-integration-or-digital-dependency/" target="_blank" rel="noopener">
+        <div class="uc-top"><span class="uc-sector">Healthcare / government</span><span class="uc-status">Deployed</span></div>
+        <div class="uc-deploy">NHS England — Federated Data Platform</div>
+        <div class="uc-metric">£330M contract; described as providing a “single source of truth” for the UK's largest operational data integration exercise</div>
+        <div class="uc-src">Source ↗</div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Competitive landscape</h2></div>
+    <table class="comp-table">
+      <thead><tr><th style="width:28%;">Vendor</th><th style="width:44%;">Category</th><th>Revenue (latest/est.)</th></tr></thead>
+      <tbody><tr><td class="mname"><a href="sand-technologies-dashboard.html">Sand Technologies</a></td><td>Physical AI platform (infrastructure control)</td><td>$15–67M (est.)</td></tr><tr><td class="mname"><a href="c3ai-dashboard.html">C3.ai</a></td><td>Enterprise AI application platform</td><td>$389M (FY2025)</td></tr><tr><td class="mname"><a href="cognite-dashboard.html">Cognite</a></td><td>Industrial data &amp; digital-twin platform</td><td>$170M+ (2025)</td></tr><tr><td class="mname"><a href="bentley-systems-dashboard.html">Bentley Systems</a></td><td>Infrastructure engineering software</td><td>$1.5B (FY2025)</td></tr><tr><td class="mname"><a href="aveva-dashboard.html">AVEVA</a></td><td>Industrial software / digital-twin suite</td><td>Not disclosed (subsidiary)</td></tr><tr><td class="mname"><a href="ibm-watsonx-dashboard.html">IBM watsonx</a></td><td>Enterprise AI &amp; data platform</td><td>Not disclosed (IBM product line)</td></tr><tr><td class="mname"><a href="honeywell-forge-dashboard.html">Honeywell Forge</a></td><td>Industrial IoT / AI software platform</td><td>Not disclosed (product line)</td></tr><tr><td class="mname"><a href="siemens-xcelerator-dashboard.html">Siemens Xcelerator</a></td><td>Open industrial digital-business platform / ecosystem</td><td>Not disclosed (platform of Siemens AG)</td></tr>
+      </tbody>
+    </table>
+    <div class="position-note"><b>Where it sits:</b> Broadest platform ambition and by far the largest balance sheet in this market. Closest comparable to Sand on category ambition (“operating system” framing) but built for data/decisions generally, not physical-infrastructure control specifically.</div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Sentiment</h2></div>
+
+    <div class="subhead">Customer sentiment</div>
+    <div class="qual-note" style="margin-bottom:18px;">Strong, vocal reference customers (BP, PG&amp;E, NHS) appear repeatedly in Palantir's own case studies and at its AIPCon customer events, but independent third-party review volume (G2/Gartner Peer Insights) is thin relative to its market cap — most public sentiment is analyst/investor commentary rather than software-buyer reviews.</div>
+
+    <div class="subhead">Market &amp; analyst sentiment</div>
+    <div class="sent-grid">
+      <div class="sent-col bull">
+        <div class="sent-head">What supports the story</div>
+        <ul><li>Revenue growth accelerating — 56% YoY in FY2025, guiding to 61%+ for FY2026, GAAP-profitable since 2023</li><li>AIP Bootcamp model converts roughly 75% of prospects into signed contracts; U.S. commercial revenue up 130%+ YoY</li><li>S&amp;P 500 inclusion (Sept 2024) and a fast-growing roster of blue-chip commercial reference customers</li></ul>
+      </div>
+      <div class="sent-col bear">
+        <div class="sent-head">What to pressure-test</div>
+        <ul><li>Valuation is priced for perfection — among the most expensive large-cap software multiples in the market</li><li>Deep ties to defense/intelligence work draw recurring criticism (ACLU and others) over predictive-policing use of Gotham</li><li>Customer lock-in risk is real: once operations run on Foundry's ontology, switching costs are very high</li></ul>
+      </div>
+    </div>
+
+    <div class="subhead">Employee sentiment</div>
+    <div class="qual-note">High talent density and real-world mission impact are the most-cited positives; work-life balance is the most-cited negative (2.8/5 on that sub-metric) alongside opaque post-cliff compensation communication.</div>
+  </section>
+
+  <footer>
+    <b>Sources:</b> Palantir Technologies public filings/website, company fact sheets, Wikipedia, PitchBook/Crunchbase/Datanyze/BuiltIn company profiles, Glassdoor employer reviews, vendor case studies and press releases as of September 2026. Figures marked “est.” or “not disclosed” are third-party estimates or unavailable, not company-confirmed — validate in diligence.<br>
+    Part of the <a href="market-overview.html" style="color:var(--steel);">Physical AI / Industrial AI for Critical Infrastructure market landscape</a>, prepared for the GIP AI program.
+  </footer>
+
+</div>
+</body>
+</html>

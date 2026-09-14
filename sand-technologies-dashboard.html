@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sand Technologies — Vendor Research Dashboard</title>
+<style>
+  :root{
+    --bg:#EFF0F3; --panel:#FFFFFF; --panel-2:#F5F6F8; --line:#DCDFE4;
+    --ink:#14161C; --ink-2:#3A3F4B; --ink-3:#5B6270;
+    --sand:#A5702B; --sand-dim:#C79256; --steel:#2B6684;
+    --green:#1F7A4D; --green-bg:#E6F5EC; --red:#B23A2E; --red-bg:#FBEAE8; --amber:#8A5B10;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px 60px;}
+
+  header.hero{
+    background:linear-gradient(180deg,#F5F6F8,#EFF0F3);
+    border-bottom:1px solid var(--line);
+    padding:40px 24px 28px;
+  }
+  .hero-inner{max-width:1080px; margin:0 auto;}
+  .kicker{
+    font-size:12.5px; color:var(--sand); letter-spacing:.02em; font-weight:600;
+    display:flex; gap:8px; align-items:center; margin-bottom:10px;
+  }
+  .kicker .dot{width:5px; height:5px; border-radius:50%; background:var(--sand);}
+  h1{font-size:34px; margin:0 0 8px; font-weight:700; letter-spacing:-0.01em; color:var(--ink);}
+  .tagline{color:var(--ink-2); font-size:15px; max-width:640px; margin:0;}
+  .tagline a{color:var(--steel); text-decoration:none;}
+
+  .kpi-row{
+    display:grid; grid-template-columns:repeat(7,1fr); gap:10px;
+    margin-top:26px;
+  }
+  .kpi{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 14px; text-align:left;}
+  .kpi .num{font-size:20px; font-weight:700; color:var(--ink);}
+  .kpi .lbl{font-size:11px; color:var(--ink-3); margin-top:4px;}
+
+  section{padding:38px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-head{display:flex; align-items:baseline; gap:10px; margin-bottom:18px;}
+  .sec-num{color:var(--sand); font-weight:700; font-size:13px;}
+  h2{font-size:19px; margin:0; font-weight:700; color:var(--ink);}
+  .sec-note{color:var(--ink-3); font-size:12.5px; margin:-8px 0 18px;}
+
+  /* snapshot */
+  .snap-grid{display:grid; grid-template-columns:1.35fr 1fr; gap:32px;}
+  .snap-grid p{font-size:14px; color:var(--ink-2); margin:0 0 14px;}
+  .snap-grid p b{color:var(--ink); font-weight:600;}
+  .side-block{margin-bottom:18px;}
+  .side-block h4{font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-3); margin:0 0 8px; font-weight:600;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{
+    font-size:12.5px; background:var(--panel); border:1px solid var(--line);
+    color:var(--ink-2); padding:5px 10px; border-radius:6px;
+  }
+
+  /* ratings */
+  .rating-cards{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px;}
+  .rcard{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:18px 20px;}
+  .rcard .src{font-size:12px; color:var(--ink-3); margin-bottom:10px;}
+  .rcard .big{font-size:28px; font-weight:700; display:flex; align-items:baseline; gap:8px; color:var(--ink);}
+  .rcard .big small{font-size:13px; color:var(--ink-3); font-weight:400;}
+  .meter{height:8px; background:var(--panel-2); border-radius:4px; margin:12px 0 10px; overflow:hidden;}
+  .meter > div{height:100%; background:var(--sand); border-radius:4px;}
+  .stat-line{display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-2); padding:4px 0; border-top:1px solid var(--line);}
+  .grade-row{display:flex; gap:8px; margin-top:12px;}
+  .grade{
+    flex:1; text-align:center; border-radius:8px; padding:10px 6px; border:1px solid var(--line); background:var(--panel-2);
+  }
+  .grade .letter{font-size:18px; font-weight:700; color:var(--sand);}
+  .grade.weak .letter{color:var(--red);}
+  .grade .cap{font-size:10.5px; color:var(--ink-3); margin-top:3px;}
+  .qual-note{font-size:12.5px; color:var(--ink-2); background:var(--panel-2); border-left:2px solid var(--sand); padding:10px 12px; border-radius:0 6px 6px 0;}
+
+  /* use cases */
+  .uc-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+  a.uc-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px 18px;
+    display:block; text-decoration:none; color:inherit; transition:border-color .15s, background .15s;
+  }
+  a.uc-card:hover{border-color:var(--sand-dim); background:var(--panel-2);}
+  a.uc-card:hover .uc-deploy{color:var(--sand);}
+  .uc-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;}
+  .uc-sector{font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--sand); font-weight:700;}
+  .uc-status-group{display:flex; align-items:center; gap:6px;}
+  .uc-status{font-size:10.5px; background:var(--green-bg); color:var(--green); padding:2px 8px; border-radius:20px; font-weight:600;}
+  .uc-link{font-size:11px; color:var(--ink-3);}
+  .uc-deploy{font-size:13.5px; color:var(--ink); font-weight:600; margin-bottom:6px; transition:color .15s;}
+  .uc-metric{font-size:12.5px; color:var(--ink-2);}
+  .uc-src{font-size:11px; color:var(--ink-3); margin-top:8px; padding-top:8px; border-top:1px solid var(--line);}
+
+  /* competitive */
+  .comp-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .comp-table th{
+    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.03em;
+    color:var(--ink-3); border-bottom:1px solid var(--line); padding:8px 10px; font-weight:600;
+  }
+  .comp-table td{padding:10px 10px; border-bottom:1px solid var(--line); color:var(--ink-2); vertical-align:top;}
+  .comp-table td.name{color:var(--ink); font-weight:600;}
+  .tag-direct{color:var(--sand); font-size:11px; font-weight:700;}
+  .tag-adjacent{color:var(--steel); font-size:11px; font-weight:700;}
+  .position-note{font-size:13.5px; color:var(--ink-2); margin-top:16px; padding-top:16px; border-top:1px solid var(--line);}
+  .position-note b{color:var(--ink);}
+  .subhead{font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-3); font-weight:600; margin:28px 0 12px;}
+  .scale-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .scale-table th{text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-3); border-bottom:1px solid var(--line); padding:8px 10px; font-weight:600;}
+  .scale-table td{padding:10px 10px; border-bottom:1px solid var(--line); color:var(--ink-2); vertical-align:top;}
+  .scale-table td.name{color:var(--ink); font-weight:600;}
+  .bar-cell{display:flex; align-items:center; gap:8px;}
+  .bar-track{flex:1; height:6px; background:var(--panel-2); border-radius:3px; overflow:hidden; max-width:120px; border:1px solid var(--line);}
+  .bar-fill{height:100%; background:var(--steel);}
+  .bar-fill.sand-fill{background:var(--sand);}
+  .callout{
+    background:var(--panel-2); border:1px solid var(--line); border-left:2px solid var(--steel);
+    border-radius:0 8px 8px 0; padding:14px 16px; font-size:13px; color:var(--ink-2); margin-top:18px;
+  }
+  .callout b{color:var(--ink);}
+
+  /* sentiment */
+  .sent-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .sent-col{border-radius:10px; padding:18px 20px; border:1px solid var(--line);}
+  .sent-col.bull{background:var(--green-bg);}
+  .sent-col.bear{background:var(--red-bg);}
+  .sent-head{font-size:13px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:6px;}
+  .sent-col.bull .sent-head{color:var(--green);}
+  .sent-col.bear .sent-head{color:var(--red);}
+  .sent-col ul{margin:0; padding-left:16px; font-size:13px; color:var(--ink-2);}
+  .sent-col li{margin-bottom:8px;}
+  .chart-box{margin-top:20px; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:18px 20px;}
+  .chart-box .chart-title{font-size:12.5px; color:var(--ink-3); margin-bottom:12px;}
+
+  footer{padding:26px 0 10px; font-size:11.5px; color:var(--ink-3); line-height:1.6;}
+  footer b{color:var(--ink-2);}
+
+  @media (max-width:720px){
+    .kpi-row{grid-template-columns:repeat(2,1fr);}
+    .snap-grid, .rating-cards, .uc-grid, .sent-grid{grid-template-columns:1fr;}
+    h1{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="kicker"><span class="dot"></span>VENDOR RESEARCH DASHBOARD &nbsp;·&nbsp; PREPARED FOR GIP AI PROGRAM &nbsp;·&nbsp; SEPTEMBER 11, 2026</div>
+    <h1>Sand Technologies</h1>
+    <p class="tagline">"Physical AI" operating system for critical infrastructure — water, energy, telecom, health &amp; government. <a href="https://www.sandtech.com" target="_blank" rel="noopener">sandtech.com ↗</a></p>
+    <div class="kpi-row">
+      <div class="kpi"><div class="num">2023</div><div class="lbl">Rebrand / current-form founding</div></div>
+      <div class="kpi"><div class="num">~500–680</div><div class="lbl">Employees (est., sources vary)</div></div>
+      <div class="kpi"><div class="num">18+</div><div class="lbl">Countries with live deployments</div></div>
+      <div class="kpi"><div class="num">12+</div><div class="lbl">Named clients in public sources; total customer count not disclosed</div></div>
+      <div class="kpi"><div class="num">$15–67M</div><div class="lbl">Est. annual revenue (third-party estimates only; not company-disclosed)</div></div>
+      <div class="kpi"><div class="num">3.6 / 5</div><div class="lbl">Glassdoor rating (47 reviews)</div></div>
+      <div class="kpi"><div class="num">B–</div><div class="lbl">Simplify.jobs analyst rating</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Company snapshot</h2></div>
+    <div class="snap-grid">
+      <div>
+        <p><b>Product.</b> Symmetri — a real-time "Physical AI" control layer that models physical assets and networks and acts on them directly, rather than just surfacing dashboards or analytics. Applied across water, energy, telecom, health and government operations.</p>
+        <p><b>Footprint.</b> Engineering and delivery across Silicon Valley, Paris, Romania, Latin America and Africa; registered HQ entity in Mauritius; opened a formal U.S. commercial presence with a New York launch event in June 2025.</p>
+        <p><b>Lineage.</b> Grew out of a decade-plus of AI/data consulting work; merged with ExploreAI in February 2024. Distinct from the unrelated, 1980s-founded "SAND Technology" (Canada, columnar database).</p>
+        <p><b>Leadership.</b> Founder/CEO Fred Swaniker — Stanford MBA, ex-McKinsey; also founder of African Leadership Group / ALX, a talent pipeline of 300,000+ trained professionals feeding Sand's hiring. TIME 100 (2019, 2023 Impact Award), WEF Young Global Leader, TED Fellow.</p>
+      </div>
+      <div>
+        <div class="side-block">
+          <h4>Key facts</h4>
+          <p style="margin:0 0 6px;"><b>Founded:</b> 2023 (current form; ~10-yr consulting heritage; merged with ExploreAI, Feb 2024)</p>
+          <p style="margin:0 0 6px;"><b>HQ:</b> Mauritius (registered HQ); engineering hubs: Silicon Valley, Paris, Romania, Latin America, Africa</p>
+          <p style="margin:0 0 6px;"><b>Ownership:</b> Private; backed in part by the Bestseller Foundation; no reported funding round</p>
+          <p style="margin:0 0 6px;"><b>Revenue:</b> $15–67M (3rd-party estimates only; not company-disclosed)</p>
+          <p style="margin:0;"><b>Web:</b> <a href="https://www.sandtech.com" target="_blank" rel="noopener" style="color:var(--steel);">sandtech.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/company/sand-technologies" target="_blank" rel="noopener" style="color:var(--steel);">LinkedIn ↗</a></p>
+        </div>
+        <div class="side-block">
+          <h4>Key people</h4>
+          <div class="chip-row">
+            <span class="chip"><b>Fred Swaniker</b> — Founder &amp; CEO</span>
+            <span class="chip"><b>Danai Mavunga</b> — Chief Operating Officer</span>
+            <span class="chip"><b>David Bratt</b> — Chief Financial Officer</span>
+          </div>
+        </div>
+        <div class="side-block">
+          <h4>Selected clients &amp; partners</h4>
+          <div class="chip-row">
+            <span class="chip">AWS (Advanced Tier)</span><span class="chip">GE</span><span class="chip">JP Morgan</span>
+            <span class="chip">Thames Water</span><span class="chip">Telkomsel</span><span class="chip">Envision Racing / Formula E</span>
+            <span class="chip">Cassava Technologies</span><span class="chip">Compass UOL</span>
+          </div>
+        </div>
+        <div class="side-block">
+          <h4>Capabilities</h4>
+          <div class="grade-row">
+            <div class="grade"><div class="letter" style="font-size:13px;">Yes</div><div class="cap">Digital twin</div></div>
+            <div class="grade"><div class="letter" style="font-size:13px;">Yes</div><div class="cap">Agentic / GenAI</div></div>
+          </div>
+          <div style="margin-top:10px;" class="qual-note">Primary buyer: Utility, telecom &amp; government operations leaders</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Use cases &amp; reported metrics</h2></div>
+    <div class="sec-note">All impact figures below are vendor- or partner-reported and have not been independently audited.</div>
+    <div class="uc-grid">
+      <a class="uc-card" href="https://www.sandtech.com/water-utilities/" target="_blank" rel="noopener">
+        <div class="uc-top"><span class="uc-sector">Water utilities</span><span class="uc-status-group"><span class="uc-status">Deployed</span></span></div>
+        <div class="uc-deploy">Thames Water (UK) — predictive network management</div>
+        <div class="uc-metric">Vendor describes moving the utility from reactive to predictive management — reducing leakage, improving compliance, optimizing capital allocation across the network. No standalone quantified result published for this deployment.</div>
+        <div class="uc-src">Source: sandtech.com — water utilities case study ↗</div>
+      </a>
+      <a class="uc-card" href="https://www.sandtech.com/telecommunications/" target="_blank" rel="noopener">
+        <div class="uc-top"><span class="uc-sector">Telecom</span><span class="uc-status-group"><span class="uc-status">Deployed</span></span></div>
+        <div class="uc-deploy">Telkomsel (Indonesia) network optimization + AWS Marketplace "AI-Driven Network Planner" (Bedrock + SageMaker)</div>
+        <div class="uc-metric">+8–15% data traffic, +5–8% coverage, $10–50M annual value — without new infrastructure</div>
+        <div class="uc-src">Source: sandtech.com — Telkomsel case study ↗</div>
+      </a>
+      <a class="uc-card" href="https://www.sandtech.com/health/" target="_blank" rel="noopener">
+        <div class="uc-top"><span class="uc-sector">Health</span><span class="uc-status-group"><span class="uc-status">Deployed</span></span></div>
+        <div class="uc-deploy">Rural clinic network, Africa</div>
+        <div class="uc-metric">Connects thousands of rural clinics into one coordinated-care network serving millions of patients</div>
+        <div class="uc-src">Source: sandtech.com — global health case study ↗</div>
+      </a>
+      <a class="uc-card" href="https://www.sandtech.com/" target="_blank" rel="noopener">
+        <div class="uc-top"><span class="uc-sector">Mobility / air quality</span><span class="uc-status-group"><span class="uc-status">Deployed</span></span></div>
+        <div class="uc-deploy">Urban corridor air-quality &amp; traffic management</div>
+        <div class="uc-metric">PM2.5 reduced 20–45% on key corridors; mobility tied to public-health outcomes</div>
+        <div class="uc-src">Source: sandtech.com — homepage metrics ↗</div>
+      </a>
+      <a class="uc-card" href="https://aws.amazon.com/marketplace/pp/prodview-ae2fh6326bbpi" target="_blank" rel="noopener">
+        <div class="uc-top"><span class="uc-sector">Disaster response</span><span class="uc-status-group"><span class="uc-status">Deployed</span></span></div>
+        <div class="uc-deploy">Post-tornado city response — Symmetri damage-assessment layer</div>
+        <div class="uc-metric">~5,400 damaged structures mapped with system-level visibility; helped prioritize shelter, medical and recovery resources by neighborhood</div>
+        <div class="uc-src">Source: AWS Marketplace — Sand Symmetri listing ↗</div>
+      </a>
+      <a class="uc-card" href="https://aws.amazon.com/marketplace/pp/prodview-zw3yl4n4l7ney" target="_blank" rel="noopener">
+        <div class="uc-top"><span class="uc-sector">Telecom (platform)</span><span class="uc-status-group"><span class="uc-status">Deployed</span></span></div>
+        <div class="uc-deploy">AI-Driven Network Planner — AWS Marketplace listing</div>
+        <div class="uc-metric">Uses AWS Bedrock + SageMaker on satellite imagery, demographics and tower/cashflow data to guide site investment decisions</div>
+        <div class="uc-src">Source: AWS Marketplace — AI-Driven Network Planner listing ↗</div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Competitive landscape</h2></div>
+    <table class="comp-table">
+      <thead><tr><th style="width:16%;">Type</th><th style="width:30%;">Company</th><th>Where it overlaps with Sand</th></tr></thead>
+      <tbody>
+        <tr><td class="tag-direct">Direct</td><td class="name">Palantir (Foundry / Gotham / AIP)</td><td>Broadest platform ambition — unifying data into an operational picture across gov &amp; commercial infrastructure</td></tr>
+        <tr><td class="tag-direct">Direct</td><td class="name">C3.ai</td><td>Model-driven enterprise AI applications for heavy industry — closest on "vertical AI applications" positioning</td></tr>
+        <tr><td class="tag-direct">Direct</td><td class="name">Cognite</td><td>Industrial data/digital-twin platform for asset-heavy operators — closest on the digital-twin angle</td></tr>
+        <tr><td class="tag-direct">Direct</td><td class="name">IBM watsonx</td><td>Enterprise AI governance and applications, long incumbency with utilities &amp; telecom</td></tr>
+        <tr><td class="tag-direct">Direct</td><td class="name">Bentley Systems (iTwin / AssetWise)</td><td>Infrastructure asset lifecycle &amp; digital-twin software for water, energy, transport</td></tr>
+        <tr><td class="tag-direct">Direct</td><td class="name">AVEVA / Honeywell Forge / Siemens Xcelerator</td><td>Industrial operations software suites with AI layered in — legacy OT incumbents</td></tr>
+        <tr><td class="tag-adjacent">Adjacent</td><td class="name">Globant, Endava</td><td>Global IT-services / AI consultancies competing for the same services budget</td></tr>
+        <tr><td class="tag-adjacent">Adjacent</td><td class="name">Andela</td><td>Africa talent-to-tech delivery model similar to Sand's ALX pipeline, though not an infrastructure-AI competitor</td></tr>
+      </tbody>
+    </table>
+    <div class="position-note">
+      <b>Positioning:</b> Sand markets itself as the creator of a new "Physical AI" category — sensing, modeling and directly acting on infrastructure — distinct from dashboard/analytics incumbents. Palantir and C3.ai are the closest comparables by ambition; Cognite, Bentley and AVEVA are closer on the digital-twin angle specifically. Sand's edge is delivery reach into Africa and other emerging markets via the ALX talent pipeline and the Cassava GPU relationship; its risk is being a smaller, services-heavy player among better-capitalized, more differentiated platform vendors — echoed in its own C differentiation score above.
+    </div>
+
+    <div class="subhead">Scale comparison — Sand vs. the field</div>
+    <table class="scale-table">
+      <thead><tr><th style="width:20%;">Company</th><th style="width:20%;">Latest revenue</th><th style="width:16%;">Employees</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="name">Sand Technologies</td>
+          <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill sand-fill" style="width:3%;"></div></div>Not disclosed</div></td>
+          <td>~500–680</td>
+          <td>Private; backed in part by the Bestseller Foundation, no reported funding round</td>
+        </tr>
+        <tr>
+          <td class="name">Palantir</td>
+          <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div>~$4.1B (FY2025 guide)</div></td>
+          <td>~4,150</td>
+          <td>Public (NASDAQ: PLTR); ~40–70% YoY revenue growth through 2025</td>
+        </tr>
+        <tr>
+          <td class="name">Bentley Systems</td>
+          <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:37%;"></div></div>$1.5B (FY2025)</div></td>
+          <td>~5,500</td>
+          <td>Public (NASDAQ: BSY); infrastructure engineering software incumbent</td>
+        </tr>
+        <tr>
+          <td class="name">Cognite</td>
+          <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:5%;"></div></div>$170M+ (2025)</div></td>
+          <td>~800</td>
+          <td>Acquired by Schneider Electric for $3.1B (announced June 2026), folding into AVEVA</td>
+        </tr>
+        <tr>
+          <td class="name">C3.ai</td>
+          <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:9%;"></div></div>$389M (FY2025)</div></td>
+          <td>~1,000</td>
+          <td>Public (NYSE: AI); revenue grew 25% in FY2025 but GAAP net losses continue</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <b>Market signal:</b> The clearest read on where this category is heading is Schneider Electric's agreement to acquire Cognite for $3.1B (June 2026) — a strategic incumbent buying its way into industrial/physical AI rather than building it. That consolidation trend raises the bar for an independent player like Sand: it either needs to reach a scale and differentiation level that makes it an acquisition target or partner-of-choice for a hyperscaler/incumbent, or it risks being squeezed between well-funded public platforms (Palantir, Bentley) and newly-consolidated industrial giants (Schneider/AVEVA/Cognite, Siemens, Honeywell).
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Sentiment</h2></div>
+
+    <div class="subhead">Customer sentiment</div>
+    <div class="qual-note" style="margin-bottom:18px;">
+      No independent customer review presence found: Sand Symmetri's AWS Marketplace listing shows zero submitted reviews, and there is no active G2, Capterra or TrustRadius profile for Sand Technologies or Symmetri. (A similarly-named UK telecoms MSP, "Sand Communications Ltd," has an unrelated 4.5-star Trustpilot page — not this company; excluded here.) What public evidence exists is vendor-published case studies (Thames Water, Telkomsel, rural-clinic network, tornado disaster response) with metrics but no verbatim customer quotes, plus a growing enterprise/regulated-industry client roster — AWS, GE, JP Morgan, Bestseller A/S, Stanbic Bank (Kenya), Tamara (Dubai), Create Prime (New Zealand). Net read: real referenceable deployments, but customer sentiment isn't independently verifiable today — worth requesting client references directly in diligence.
+    </div>
+
+    <div class="subhead">Market &amp; analyst sentiment</div>
+    <div class="sent-grid">
+      <div class="sent-col bull">
+        <div class="sent-head">What supports the story</div>
+        <ul>
+          <li>High-profile founder (TIME 100, WEF Young Global Leader, TED Fellow) drives press and government-relationship access; August 2026 "Evolve" summit drew 300+ infrastructure/AI leaders</li>
+          <li>AWS Advanced Tier partner status + Compass UOL partnership broaden enterprise channel reach</li>
+          <li>Warm public reception at the 2025 U.S. launch, including on-record praise from NYC's CTO</li>
+          <li>Deployments claimed across 18+ countries with "zero mission-critical failures" (vendor claim, unaudited)</li>
+        </ul>
+      </div>
+      <div class="sent-col bear">
+        <div class="sent-head">What to pressure-test</div>
+        <ul>
+          <li>Headcount down ~6% (6-mo) / ~9% (2-yr) per Simplify tracking, despite a growth narrative</li>
+          <li>Revenue concentration in large infrastructure clients → project-delay risk if deployments slip</li>
+          <li>Cassava GPU-access agreement is a non-binding MoU, not a locked-in commitment</li>
+          <li>Analyst-rated C on Differentiation — a crowded, consolidating field vs. Palantir, C3.ai, Cognite, Bentley, AVEVA</li>
+        </ul>
+      </div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Headcount growth trend (Simplify.jobs tracking)</div>
+      <div style="position:relative; height:220px;">
+        <canvas id="headcountChart" role="img" aria-label="Bar chart showing Sand Technologies headcount growth of negative 6 percent over 6 months, negative 6 percent over 1 year, and negative 9 percent over 2 years">6-month: -6%. 1-year: -6%. 2-year: -9%.</canvas>
+      </div>
+    </div>
+
+    <div class="subhead">Employee sentiment</div>
+    <div class="qual-note">Qualitative read across Glassdoor reviews: praise for mission, talent and pace of delivery, offset by recurring complaints about frequent strategic pivots, an unclear product offering, and meeting load. Consistent with the analyst-rated C on Differentiation above — the internal and external reads on positioning clarity agree.</div>
+  </section>
+
+  <footer>
+    <b>Sources:</b> sandtech.com · Glassdoor (Sand Technologies employer reviews) · Simplify.jobs company profile · PitchBook &amp; Crunchbase company profiles · AWS Marketplace listings (Sand Symmetri; AI-Driven Network Planner) · FF News / Hypertext / EA Business Times (Cassava Technologies MoU, May 2025) · Wikipedia (Fred Swaniker) · IoT For All, ZoomInfo &amp; BuiltIn company profiles · Sand Tech Holdings job posting (client roster) · Palantir Q4 2025 earnings release · Bentley Systems FY2025 results · Schneider Electric / Cimdata / Aker ASA (Cognite acquisition, June 2026) · Dealroom (Cognite profile) · Nasdaq/Yahoo Finance (C3.ai coverage).<br>
+    Figures are vendor-, partner- or platform-reported as of September 2026 and have not been independently verified — treat named metrics as claims to validate in diligence, not confirmed facts.
+  </footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+  const ctx = document.getElementById('headcountChart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['6 months', '1 year', '2 years'],
+      datasets: [{
+        label: 'Headcount growth',
+        data: [-6, -6, -9],
+        backgroundColor: '#B23A2E',
+        borderRadius: 4,
+        maxBarThickness: 60
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          suggestedMin: -12, suggestedMax: 2,
+          ticks: { color: '#5B6270', callback: (v) => v + '%' },
+          grid: { color: '#DCDFE4' }
+        },
+        x: {
+          ticks: { color: '#5B6270' },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
