@@ -174,8 +174,32 @@ def build_pdf(v, out_path):
     story.append(para(f"<b>Where it sits:</b> {v['position_note']}", "body_sm"))
     story.append(Spacer(1, 5))
 
+    # ---- 04 GIP & BlackRock connections ----
+    story.append(section_head("GIP &amp; BlackRock Connections", "04"))
+    story.append(para("GIP became a wholly-owned BlackRock subsidiary in October 2024 and now operates as BlackRock's dedicated infrastructure-investment arm. Stakes below are standard institutional/index-fund positions unless otherwise noted.", "muted"))
+    story.append(Spacer(1,2))
+    gb_data = [
+        [para("<b>Entity</b>","body_sm"), para("<b>Possible connection</b>","body_sm")],
+        [para("Global Infrastructure Partners","body_sm"), para(v["gip_connection"],"body_sm")],
+        [para("BlackRock","body_sm"), para(v["blackrock_connection"],"body_sm")],
+    ]
+    gb_table = Table(gb_data, colWidths=[1.7*inch, 5.96*inch])
+    gb_table.setStyle(TableStyle([
+        ("BACKGROUND",(0,0),(-1,0), WHITE), ("TEXTCOLOR",(0,0),(-1,0), MUTED),
+        ("FONTNAME",(0,0),(-1,0), BASE_BOLD), ("FONTSIZE",(0,0),(-1,0), 6.8),
+        ("VALIGN",(0,0),(-1,-1),"TOP"),
+        ("TOPPADDING",(0,0),(-1,-1),2.2), ("BOTTOMPADDING",(0,0),(-1,-1),2.2),
+        ("LEFTPADDING",(0,0),(-1,-1),5),
+        ("ROWBACKGROUNDS",(0,1),(-1,-1),[WHITE, PANEL_BG]),
+        ("LINEBELOW",(0,0),(0,0),1,INK),
+        ("LINEBELOW",(0,1),(-1,-1),0.4,LINE),
+        ("BOX",(0,0),(-1,-1),0.6,LINE),
+    ]))
+    story.append(gb_table)
+    story.append(Spacer(1, 5))
+
     # ---- 05 Sentiment ----
-    story.append(section_head("Sentiment", "04"))
+    story.append(section_head("Sentiment", "05"))
     story.append(para(f"<b>Customer:</b> {v['customer_sentiment']}", "body_sm"))
     story.append(Spacer(1,4))
 

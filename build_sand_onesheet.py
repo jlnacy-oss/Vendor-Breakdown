@@ -49,9 +49,9 @@ styles["h2"] = ParagraphStyle("h2", fontName=BASE_BOLD, fontSize=11.5, leading=1
                                textColor=NAVY, spaceBefore=0, spaceAfter=5)
 styles["body"] = ParagraphStyle("body", fontName=BASE_FONT, fontSize=8.2, leading=10.3,
                                  textColor=INK)
-styles["body_sm"] = ParagraphStyle("body_sm", fontName=BASE_FONT, fontSize=7.3, leading=9.0,
+styles["body_sm"] = ParagraphStyle("body_sm", fontName=BASE_FONT, fontSize=7.1, leading=8.6,
                                     textColor=INK)
-styles["muted"] = ParagraphStyle("muted", fontName=BASE_FONT, fontSize=7.6, leading=10,
+styles["muted"] = ParagraphStyle("muted", fontName=BASE_FONT, fontSize=7.3, leading=9.4,
                                   textColor=MUTED)
 styles["stat_num"] = ParagraphStyle("stat_num", fontName=BASE_BOLD, fontSize=12.5, leading=13.5,
                                      textColor=INK, alignment=TA_CENTER)
@@ -59,7 +59,7 @@ styles["stat_lbl"] = ParagraphStyle("stat_lbl", fontName=BASE_FONT, fontSize=6.3
                                      textColor=MUTED, alignment=TA_CENTER)
 styles["tag"] = ParagraphStyle("tag", fontName=BASE_BOLD, fontSize=7, leading=9,
                                 textColor=WHITE, alignment=TA_CENTER)
-styles["src"] = ParagraphStyle("src", fontName=BASE_FONT, fontSize=6.3, leading=8.0,
+styles["src"] = ParagraphStyle("src", fontName=BASE_FONT, fontSize=6.0, leading=7.6,
                                 textColor=MUTED)
 
 def para(text, style="body"):
@@ -82,7 +82,7 @@ def stat_box(num, label, width=1.68):
     # Fixed row heights so every KPI box renders at the same height regardless
     # of how many lines its own number/label happen to wrap to.
     inner = Table([[Paragraph(num, styles["stat_num"])], [Paragraph(label, styles["stat_lbl"])]],
-                   colWidths=[width*inch], rowHeights=[20, 22])
+                   colWidths=[width*inch], rowHeights=[18, 20])
     inner.setStyle(TableStyle([
         ("BACKGROUND", (0,0), (-1,-1), WHITE),
         ("BOX", (0,0), (-1,-1), 0.6, LINE),
@@ -102,7 +102,7 @@ doc = SimpleDocTemplate(
     os.path.join(ROOT_DIR, "Sand-Technologies-One-Sheet.pdf"),
     pagesize=letter,
     leftMargin=0.45*inch, rightMargin=0.45*inch,
-    topMargin=0, bottomMargin=0.04*inch,
+    topMargin=0, bottomMargin=0.02*inch,
 )
 
 story = []
@@ -240,6 +240,32 @@ story.append(Spacer(1,1.3))
 story.append(para("<b>Positioning:</b> Sand markets a new \u201cPhysical AI\u201d category — sensing, modeling and directly acting on infrastructure, vs. dashboards/analytics. Palantir and C3.ai are the closest comparables by ambition; Cognite, Bentley and AVEVA are closer on the digital-twin angle. Sand's edge is emerging-market delivery reach (ALX talent pipeline, Cassava GPU access); its risk is being a smaller, services-heavy player among better-capitalized platform vendors — echoed in its own C differentiation score above.", "body_sm"))
 story.append(Spacer(1, 1))
 
+# ===================== 04 GIP & BLACKROCK CONNECTIONS =====================
+story.append(section_head("GIP &amp; BlackRock Connections", "04"))
+story.append(para("GIP became a wholly-owned BlackRock subsidiary in October 2024 and now operates as BlackRock's dedicated infrastructure-investment arm. Stakes below are standard institutional/index-fund positions unless otherwise noted.", "muted"))
+story.append(Spacer(1,1))
+gb_data = [
+    [para("<b>Entity</b>","body_sm"), para("<b>Possible connection</b>","body_sm")],
+    [para("Global Infrastructure Partners","body_sm"),
+     para("No direct connection found. Sand is privately held with no disclosed GIP investment, and none of Sand's named customers appear on GIP's own portfolio-company list (airports, ports, rail, data centers, water/waste and energy assets).","body_sm")],
+    [para("BlackRock","body_sm"),
+     para("No equity or ownership connection found. There is a real indirect link worth flagging: Sand's flagship water-utilities customer, Thames Water, has BlackRock as one of the senior creditor bondholders (with Aberdeen, Elliott Management, Apollo, M&amp;G and Silver Point Capital) in the ~\u00a317B debt restructuring on track to hand ownership of Thames Water to its creditors. If that completes as proposed, BlackRock becomes a part-owner of a Sand customer — a deal-contingent link, not a current relationship.","body_sm")],
+]
+gb_table = Table(gb_data, colWidths=[1.5*inch, 5.7*inch])
+gb_table.setStyle(TableStyle([
+    ("BACKGROUND",(0,0),(-1,0), WHITE), ("TEXTCOLOR",(0,0),(-1,0), MUTED),
+    ("FONTNAME",(0,0),(-1,0), BASE_BOLD), ("FONTSIZE",(0,0),(-1,0), 7.2),
+    ("VALIGN",(0,0),(-1,-1),"TOP"),
+    ("TOPPADDING",(0,0),(-1,-1),1.2), ("BOTTOMPADDING",(0,0),(-1,-1),1.2),
+    ("LEFTPADDING",(0,0),(-1,-1),6),
+    ("ROWBACKGROUNDS",(0,1),(-1,-1),[WHITE, PANEL_BG]),
+    ("LINEBELOW",(0,0),(0,0),1,INK),
+    ("LINEBELOW",(0,1),(-1,-1),0.4,LINE),
+    ("BOX",(0,0),(-1,-1),0.6,LINE),
+]))
+story.append(gb_table)
+story.append(Spacer(1, 0.5))
+
 # ===================== 05 SENTIMENT =====================
 bull = [
     "High-profile founder (TIME 100, WEF Young Global Leader, TED Fellow) drives press and government access; Aug 2026 \u201cEvolve\u201d summit drew 300+ leaders",
@@ -275,20 +301,20 @@ sent_body.setStyle(TableStyle([
     ("LINEBEFORE",(1,0),(1,0),0.6,LIGHT_BG),
 ]))
 
-story.append(section_head("Sentiment", "04"))
+story.append(section_head("Sentiment", "05"))
 story.append(para("<b>Customer:</b> No independent review presence: Sand Symmetri's AWS Marketplace listing shows zero submitted reviews, and there is no active G2/Capterra/TrustRadius profile. What exists is vendor-published case studies with metrics but no verbatim customer quotes.", "body_sm"))
-story.append(Spacer(1,2))
+story.append(Spacer(1,1))
 story.append(sent_header)
 story.append(sent_body)
-story.append(Spacer(1,2))
+story.append(Spacer(1,1))
 story.append(para("<b>Employee:</b> Praise for mission, talent and pace of delivery; recurring complaints about frequent strategic pivots, an unclear product offering, and meeting load.", "body_sm"))
 
 # ===================== SOURCES =====================
 story.append(HRFlowable(width="100%", thickness=0.5, color=LINE))
 story.append(Spacer(1,1))
 src_text = ("Sources: sandtech.com · Glassdoor · Simplify.jobs · PitchBook &amp; Crunchbase · AWS Marketplace listing "
-            "(AI-Driven Network Planner) · FF News / Hypertext / EA Business Times (Cassava MoU, May 2025) · Wikipedia (Fred Swaniker) · "
-            "IoT For All, ZoomInfo &amp; BuiltIn. Figures are vendor/partner-reported as of Sept. 2026, not independently verified.")
+            "· FF News/Hypertext/EA Business Times (Cassava MoU) · Wikipedia · IoT For All, ZoomInfo &amp; BuiltIn · "
+            "ITV/AOL/Reuters (Thames Water restructuring) · BlackRock/GIP disclosures. Vendor/partner-reported as of Sept. 2026, not independently verified.")
 story.append(para(src_text, "src"))
 
 def paint_bg(canvas, doc_):

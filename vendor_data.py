@@ -51,6 +51,8 @@ VENDORS = [
         ],
         "customer_sentiment": "No independent review presence: Sand Symmetri's AWS Marketplace listing shows zero submitted reviews, and there is no active G2/Capterra/TrustRadius profile. What exists is vendor-published case studies with metrics but no verbatim customer quotes.",
         "employee_sentiment": "Praise for mission, talent and pace of delivery; recurring complaints about frequent strategic pivots, an unclear product offering, and meeting load.",
+        "gip_connection": "No direct connection found. Sand is privately held with no disclosed GIP investment, and none of Sand's named customers appear on GIP's own portfolio-company list (airports, ports, rail, data centers, water/waste and energy assets).",
+        "blackrock_connection": "No equity or ownership connection found. There is a real indirect link worth flagging, though: Sand's flagship water-utilities case study customer, Thames Water, has BlackRock as one of the senior creditor bondholders (alongside Aberdeen, Elliott Management, Apollo, M&amp;G and Silver Point Capital) in the ~\u00a317B debt restructuring that is on track to hand ownership of Thames Water to its creditors. If that restructuring completes as proposed, BlackRock would become a part-owner of a Sand customer \u2014 a deal-contingent link, not a confirmed current relationship.",
         "has_full_dashboard": True,
     },
     {
@@ -98,6 +100,8 @@ VENDORS = [
         ],
         "customer_sentiment": "Strong, vocal reference customers (BP, PG&amp;E, NHS) appear repeatedly in Palantir's own case studies and at its AIPCon customer events, but independent third-party review volume (G2/Gartner Peer Insights) is thin relative to its market cap \u2014 most public sentiment is analyst/investor commentary rather than software-buyer reviews.",
         "employee_sentiment": "High talent density and real-world mission impact are the most-cited positives; work-life balance is the most-cited negative (2.8/5 on that sub-metric) alongside opaque post-cliff compensation communication.",
+        "gip_connection": "No named GIP portfolio company was confirmed as a Palantir customer in available sources. The sectoral overlap is real \u2014 Palantir markets Foundry/AIP explicitly for \u201ccritical infrastructure,\u201d construction (named partners McCarthy and Kiewit), and government, territory that includes GIP-style assets like airports, ports and utilities \u2014 but no specific GIP-owned asset was confirmed as a live deployment.",
+        "blackrock_connection": "Confirmed and substantial, but passive: BlackRock is one of Palantir's largest institutional shareholders, holding roughly 5.5%\u20138.7% of shares outstanding across recent 13G/13F filings (an ~$19.9B position as of mid-2026, per TIKR/SEC data). This is standard index-fund ownership \u2014 BlackRock holds comparable stakes in thousands of public companies \u2014 not a commercial or operating partnership.",
     },
     {
         "slug": "c3ai",
@@ -144,6 +148,8 @@ VENDORS = [
         ],
         "customer_sentiment": "Public case studies (Shell, Baker Hughes, LyondellBasell) show real deployed scale, but G2/Gartner Peer Insights review volume is modest for a public company of this size, and the JV-heavy customer base makes independent reference-checking harder than for a typical SaaS vendor.",
         "employee_sentiment": "Recent reviews cite a sharp deterioration \u2014 \u201csinking ship\u201d language and reports of aggressive attrition \u2014 a marked reversal from C3.ai's earlier \u201chighest-rated cloud company to work for\u201d recognition (Battery Ventures/Glassdoor, ~2021).",
+        "gip_connection": "No connection found. None of C3.ai's named customers (Shell, Baker Hughes, Bank of America, U.S. Air Force/Army, Cargill, Koch) are GIP portfolio companies.",
+        "blackrock_connection": "Confirmed passive ownership \u2014 6.8% of shares outstanding per BlackRock's April 2026 Schedule 13G/A filing, its largest disclosed institutional holder after Vanguard (6.1%) and founder Thomas Siebel's combined family/trust stakes (~15%+).",
     },
     {
         "slug": "cognite",
@@ -188,6 +194,8 @@ VENDORS = [
         ],
         "customer_sentiment": "Extensive, detailed public case studies (55+ published, many with Aker BP) and a Forrester-commissioned ROI study showing 400% ROI \u2014 among the more substantively documented customer track records on this list, though commissioned studies carry an inherent vendor bias.",
         "employee_sentiment": "Limited review volume; available reviews are moderately positive but not enough data to draw a confident trend line before the Schneider Electric integration begins.",
+        "gip_connection": "No connection found. Cognite's investor base (Aker ASA, TCV, Accel, Saudi Aramco) has no disclosed GIP tie, and no GIP portfolio company appears among its named customers (Aker BP and others).",
+        "blackrock_connection": "No direct stake in Cognite today. Indirect exposure is coming: once Schneider Electric's ~$3.1B acquisition of Cognite closes, Cognite becomes part of a company where BlackRock is the largest shareholder (7.93% of Schneider Electric, per recent filings) \u2014 passive ownership at one remove, not a strategic relationship.",
     },
     {
         "slug": "bentley-systems",
@@ -231,6 +239,8 @@ VENDORS = [
         ],
         "customer_sentiment": "Deep bench of quantified, named case studies (WSP, Singapore PUB) published directly by Bentley, plus a large installed base that generates steady independent commentary in AEC industry press \u2014 among the more substantively evidenced customer track records on this list.",
         "employee_sentiment": "Consistently positive: strong culture and work-life balance are the most-cited pros; below-market pay in some regions and a perceived \u201cslow transformation\u201d pace are the most-cited cons.",
+        "gip_connection": "No named GIP portfolio company was confirmed as a Bentley customer, though Bentley's customer base of government transportation agencies and infrastructure owner-operators plausibly overlaps with GIP-owned airports, ports and rail (Bentley's software is near-ubiquitous in civil infrastructure engineering) \u2014 no specific deployment was confirmed in available sources.",
+        "blackrock_connection": "Confirmed \u2014 5.4% of shares outstanding per a July 2026 Schedule 13G/A, making BlackRock Bentley's largest institutional holder outside the founding Bentley family, which retains majority voting control via dual-class shares.",
     },
     {
         "slug": "aveva",
@@ -274,6 +284,8 @@ VENDORS = [
         ],
         "customer_sentiment": "Well-documented, quantified case studies (PETRONAS, Saudi Aramco, BASF) and solid third-party product ratings (Gartner Peer Insights ~4.1\u20134.4 for PI System) \u2014 one of the more substantively evidenced customer records on this list.",
         "employee_sentiment": "Generally positive on work-life balance and colleagues; the most-repeated concern is uncertainty about Schneider Electric's long-term integration plans for the brand and team.",
+        "gip_connection": "No named GIP portfolio company was confirmed as an AVEVA customer. AVEVA does sell a purpose-built \u201cUnified Operations Center for Data Centers\u201d product directly relevant to GIP's CyrusOne data-center holdings, but no confirmed CyrusOne\u2013AVEVA relationship was found.",
+        "blackrock_connection": "The clearest indirect link in this set: AVEVA's parent, Schneider Electric, has BlackRock as its largest shareholder at 7.93% of shares outstanding (per recent filings). AVEVA itself hasn't been separately listed since the 2023 acquisition, so this exposure flows entirely through Schneider's cap table.",
     },
     {
         "slug": "ibm-watsonx",
@@ -317,6 +329,8 @@ VENDORS = [
         ],
         "customer_sentiment": "Gartner Peer Insights reviews for watsonx.ai are mixed-to-positive (governance and flexibility praised; UX complexity criticized); IBM's own published case studies (NatWest, Barr\u00e9) show real quantified wins, though as with any vendor-published study, treat as illustrative rather than independently audited.",
         "employee_sentiment": "IBM overall skews positive (3.9/5, 78% recommend) but is a 300,000-person company \u2014 the rating reflects IBM broadly, not the watsonx team specifically; some reviewers describe limited internal exposure to the product itself.",
+        "gip_connection": "No connection found. IBM's enterprise client base is broad enough that overlap with a GIP portfolio company is plausible, but no specific relationship was confirmed in available sources.",
+        "blackrock_connection": "Confirmed passive ownership \u2014 BlackRock holds a ~$18.8B stake in IBM (77.6M shares as of Q1 2026), its largest institutional holder ahead of Vanguard and State Street.",
     },
     {
         "slug": "honeywell-forge",
@@ -357,6 +371,8 @@ VENDORS = [
         ],
         "customer_sentiment": "Published case studies show real, quantified operational wins, but Forge-specific third-party review coverage (G2/Gartner) is thin \u2014 most available sentiment data is at the parent Honeywell level, not the Forge product specifically.",
         "employee_sentiment": "Best overall employer sentiment on this list; some reviews flag aggressive sales quotas and bureaucracy typical of a large industrial conglomerate mid-restructuring.",
+        "gip_connection": "No connection found. Honeywell serves airports and industrial operators broadly, which overlaps with GIP's transport and energy portfolios in principle, but no named GIP asset was confirmed as a Forge customer.",
+        "blackrock_connection": "Confirmed passive ownership \u2014 roughly 6.6% of Honeywell, per a July 2026 filing made under the newly separate \u201cHoneywell Aerospace\u201d filing entity, reflecting Honeywell's ongoing corporate breakup into standalone businesses.",
     },
     {
         "slug": "siemens-xcelerator",
@@ -400,5 +416,7 @@ VENDORS = [
         ],
         "customer_sentiment": "Named automotive OEM customers (Hyundai, Kia, Daimler Truck) and platform-wide outcome statistics are published, but individual, quantified single-customer case studies are less prominent than for AVEVA or Bentley \u2014 sentiment is inferred more from platform-level claims than deep-dive references.",
         "employee_sentiment": "Consistently positive across a very large review base; global exposure and learning opportunities are the most-cited pros, with bureaucratic pace and slower career progression the most-cited cons.",
+        "gip_connection": "No named GIP portfolio company was confirmed as a Siemens customer, though Siemens' scale across rail, energy and industrial automation plausibly overlaps with several GIP-owned assets (e.g., Pacific National and Italo rail, various energy platforms) \u2014 no specific deployment was confirmed.",
+        "blackrock_connection": "Confirmed \u2014 BlackRock is Siemens AG's largest shareholder at roughly 6.5%\u20136.9% of shares outstanding across recent disclosures, ahead of Vanguard and Capital Research and Management.",
     },
 ]

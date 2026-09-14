@@ -132,7 +132,19 @@ def vendor_page(v):
   </section>
 
   <section>
-    <div class="sec-head"><span class="sec-num">04</span><h2>Sentiment</h2></div>
+    <div class="sec-head"><span class="sec-num">04</span><h2>GIP &amp; BlackRock connections</h2></div>
+    <div class="sec-note">Global Infrastructure Partners (GIP) became a wholly-owned BlackRock subsidiary in October 2024 and now operates as BlackRock's dedicated infrastructure-investment arm. Ownership stakes below are standard institutional/index-fund positions unless otherwise noted \u2014 that is a capital-markets fact, not evidence of an operating relationship.</div>
+    <table class="scale-table">
+      <thead><tr><th style="width:22%;">Entity</th><th>Possible connection</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Global Infrastructure Partners</td><td>{v['gip_connection']}</td></tr>
+        <tr><td class="name">BlackRock</td><td>{v['blackrock_connection']}</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Sentiment</h2></div>
 
     <div class="subhead">Customer sentiment</div>
     <div class="qual-note" style="margin-bottom:18px;">{v['customer_sentiment']}</div>
@@ -154,7 +166,7 @@ def vendor_page(v):
   </section>
 
   <footer>
-    <b>Sources:</b> {v['name']} public filings/website, company fact sheets, Wikipedia, PitchBook/Crunchbase/Datanyze/BuiltIn company profiles, Glassdoor employer reviews, vendor case studies and press releases as of September 2026. Figures marked \u201cest.\u201d or \u201cnot disclosed\u201d are third-party estimates or unavailable, not company-confirmed \u2014 validate in diligence.<br>
+    <b>Sources:</b> {v['name']} public filings/website, company fact sheets, Wikipedia, PitchBook/Crunchbase/Datanyze/BuiltIn company profiles, Glassdoor employer reviews, vendor case studies and press releases, SEC Schedule 13D/13G/13F filings, and BlackRock/GIP corporate disclosures, as of September 2026. Figures marked \u201cest.\u201d or \u201cnot disclosed\u201d are third-party estimates or unavailable, not company-confirmed \u2014 validate in diligence.<br>
     Part of the <a href="market-overview.html" style="color:var(--steel);">Physical AI / Industrial AI for Critical Infrastructure market landscape</a>.
   </footer>
 
